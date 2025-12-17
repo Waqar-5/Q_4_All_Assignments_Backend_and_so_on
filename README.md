@@ -1,1 +1,1 @@
-## All Assignments of Quarter 4 in GIAIC
+## All Assignments of Quarter 4 classes in GIAIC
