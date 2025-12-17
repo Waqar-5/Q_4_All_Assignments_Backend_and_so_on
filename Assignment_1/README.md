@@ -154,11 +154,11 @@ DELETE /todos/{todo_id}
 Include screenshots of your API requests and responses here. Add images using Markdown syntax:
 
 ```markdown
-![Create Todo pic ](images/post.png)
-![Get Todos pic ](images/get.png)
-![Update Todo pic ](images/put.png)
-![Delete Todo pic ](images/delete.png)
-![Testing api ](images/pic.png)
+![Create Todo](images/post.png)
+![Get Todos](images/get.png)
+![Update Todo](images/put.png)
+![Delete Todo](images/delete.png)
+![Testing API](images/pic.png)
 ```
 
 > Make sure to save your screenshots in the `screenshots/` folder inside your project directory.
