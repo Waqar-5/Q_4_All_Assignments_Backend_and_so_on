@@ -1,3 +1,4 @@
+
 # ✅ Todo List API (FastAPI + Pydantic)
 
 A simple, clean, and beginner‑friendly **Todo List REST API** built using **FastAPI** and **Pydantic**.
@@ -36,6 +37,7 @@ Todo-List-API/
 ├── main.py            # Main FastAPI application
 ├── requirements.txt  # Project dependencies
 └── README.md          # Project documentation
+├── screenshots/       # Screenshots of API output and testing
 ```
 
 ---
@@ -147,15 +149,19 @@ DELETE /todos/{todo_id}
 
 ---
 
-## 📸 Output & Testing
+## 📸 Screenshots
 
-All APIs can be tested easily using:
+Include screenshots of your API requests and responses here. Add images using Markdown syntax:
 
-* **Swagger UI** (recommended)
-* Browser
-* Postman
+```markdown
+![Create Todo pic ](images/post.png)
+![Get Todos pic ](images/get.png)
+![Update Todo pic ](images/put.png)
+![Delete Todo pic ](images/delete.png)
+![Testing api ](images/pic.png)
+```
 
-Swagger UI automatically validates input and shows responses.
+> Make sure to save your screenshots in the `screenshots/` folder inside your project directory.
 
 ---
 
@@ -184,25 +190,6 @@ This project is ideal for learning how modern Python APIs are built using FastAP
 
 **Waqar Ali**
 Python & Web Developer
-
----
-
-⭐ *If you like this project, give it a star!*
-
----
-
-## 🚀 Future Improvements (Optional)
-
-* Add database (SQLite / MySQL)
-* Add authentication
-* Deploy online (Render / Railway)
-* Add frontend UI
-
----
-
-## 👨‍💻 Author
-
-**Waqar Ali**
 
 ---
 
