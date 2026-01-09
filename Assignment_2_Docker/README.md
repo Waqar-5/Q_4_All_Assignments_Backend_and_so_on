@@ -16,20 +16,31 @@ Both projects are fully containerized using Docker and can be run locally with j
 class13-docker-assignment/
 │
 ├── nextjs-docker/
+
 │ ├── app/ # Next.js pages (App Router)
+
 │ ├── Dockerfile # Docker configuration
+
 │ ├── package.json # Node.js dependencies
+ 
 │ └── package-lock.json # Node.js lock file
 │
 ├── fastapi-docker/
+
 │ ├── main.py # FastAPI app
+
 │ ├── Dockerfile # Docker configuration
+
 │ └── requirements.txt # Python dependencies
 │
 ├── screenshots/
-│ ├── nextjs-docker.png
+
+│ ├── nextjs-docker.
+
 │ ├── nextjs-docker-image.png
+
 │ ├── fastapi-docker.png
+
 │ └── fastapi-docker-image.png
 │
 └── README.md # This file
@@ -46,7 +57,9 @@ class13-docker-assignment/
 A simple **Next.js application** running inside a Docker container.
 
 ### 📸 Screenshot
-![Next.js Docker Container](screenshots/nextjs-docker.png)
+![Next.js Docker and fastapi images](images/both_images.png)
+![Next.js Docker Container](images/nextjs-conatiner.png)
+![fastapi Docker Container](images/fastapi-container.png)
 
 ### 🛠️ How to Run Next.js App
 
