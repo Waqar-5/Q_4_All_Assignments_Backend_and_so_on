@@ -60,7 +60,34 @@ A simple **Next.js application** running inside a Docker container.
 ![Next.js Docker and fastapi images](images/both_images.png)
 
 
+
+
+
+
+
+
+
+
+
 ![Next.js Docker Container](images/nextjs-conatiner.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
