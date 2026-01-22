@@ -1,0 +1,19 @@
+# Docker Compose file to run multiple services (Next.js + FastAPI) together
+
+# Version of the Compose file format (optional in newer Docker versions)
+# version: '3.9'  # Deprecated warning in recent Docker versions
+
+services:  # Define all the services (containers) you want to run
+  nextjs:  # Name of the first service (Next.js frontend)
+    image: waqaralidev/nextjs-docker:latest  # Docker image to use for this container
+    container_name: nextjs-container  # Custom name for the running container
+    ports:
+      - "3000:3000"  # Map host port 3000 to container port 3000 (access via localhost:3000)
+    restart: unless-stopped  # Automatically restart the container unless manually stopped
+
+  fastapi:  # Name of the second service (FastAPI backend)
+    image: waqaralidev/fastapi-docker:latest  # Docker image to use for this container
+    container_name: fastapi-container  # Custom name for the running container
+    ports:
+      - "8000:8000"  # Map host port 8000 to container port 8000 (access via localhost:8000)
+    restart: unless-stopped  # Automatically restart the container unless manually stopped

@@ -173,3 +173,41 @@ Next.js Documentation
 FastAPI Documentation
 
 Docker Documentation
+
+
+
+
+## assignment 3 
+
+** 🌍 Docker Compose Setup
+
+- docker-compose.yml example to run both containers at once:
+
+services:
+  nextjs:
+    image: <DOCKER_USERNAME>/nextjs-docker:latest
+    container_name: nextjs-container
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  fastapi:
+    image: <DOCKER_USERNAME>/fastapi-docker:latest
+    container_name: fastapi-container
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+
+## Run with Compose
+
+- docker-compose up -d    # Pulls images & runs both containers
+- docker-compose down     # Stops and removes containers
+
+Open in browser:
+
+Next.js: http://localhost:3000
+
+FastAPI: http://localhost:8000
+
+** Run both apps together with Docker Compose
