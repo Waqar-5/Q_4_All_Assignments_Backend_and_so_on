@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  todo-app:
+    image: my-nextjs-todo
+    container_name: todo-container
+    ports:
+      - "3000:3000"
+    volumes:
+      - todo-data:/app/data    # <-- only one volume
+    restart: unless-stopped
+
+volumes:
+  todo-data:                 # <-- defines the single volume
