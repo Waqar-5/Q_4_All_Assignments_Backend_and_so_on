@@ -60,7 +60,7 @@ export default function Home() {
     ]);
 
     try {
-      const res = await fetch("https://your-backend.vercel.app/chat", {
+      const res = await fetch("https://waqar5-backend-agent.hf.space/chat", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ message: userMsg }),
