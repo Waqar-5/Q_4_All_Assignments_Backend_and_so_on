@@ -4,7 +4,7 @@ from openai import AsyncOpenAI, OpenAI
 
 load_dotenv(find_dotenv())
 
-# Helper to get the correct model name (updated for 2026)
+# Use 2.5-flash which is the fastest stable model right now
 CURRENT_MODEL = "gemini-2.5-flash" 
 
 def get_async_client():
@@ -19,7 +19,9 @@ async def run_agent_stream(prompt: str):
         response = await client.chat.completions.create(
             model=CURRENT_MODEL,
             messages=[{"role": "user", "content": prompt}],
-            stream=True
+            stream=True,
+            # Use 'none' to disable the long thinking delay for 2.5 models
+            reasoning_effort="none" 
         )
         async for chunk in response:
             if chunk.choices[0].delta.content:
@@ -28,7 +30,6 @@ async def run_agent_stream(prompt: str):
         yield f"\n❌ Error: {e}"
 
 def run_agent(prompt: str) -> str:
-    # Sync client for standard requests
     sync_client = OpenAI(
         api_key=os.getenv("GEMINI_API_KEY"),
         base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
@@ -36,7 +37,9 @@ def run_agent(prompt: str) -> str:
     try:
         response = sync_client.chat.completions.create(
             model=CURRENT_MODEL,
-            messages=[{"role": "user", "content": prompt}]
+            messages=[{"role": "user", "content": prompt}],
+            # Use 'none' here too for instant responses
+            reasoning_effort="none"
         )
         return response.choices[0].message.content
     except Exception as e:
