@@ -1,7 +1,6 @@
 # 🤖 Cognitic AI Chat
 
 ![Project Banner](/assets/pic1.png)
-*Replace with your project banner or screenshot.*
 
 Cognitic AI Chat is a modern, interactive AI assistant application with a **Next.js frontend** and a **FastAPI backend**, deployed seamlessly on Hugging Face Spaces. It allows users to chat with an AI agent in real-time, providing intelligent and contextual responses.
 
@@ -124,7 +123,7 @@ Response:
 * Scrollable chat interface with smooth transitions.
 
 ![Chat Screenshot](/assets/pic2.png)
-*Replace with your frontend screenshot.*
+
 
 ---
 
