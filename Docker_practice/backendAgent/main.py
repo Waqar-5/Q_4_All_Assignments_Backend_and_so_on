@@ -15,3 +15,4 @@ def home():
 def chat(req: ChatRequest):
     reply = run_agent(req.message)
     return {"reply": reply}
+

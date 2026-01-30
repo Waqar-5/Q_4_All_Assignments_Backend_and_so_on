@@ -1,31 +1,53 @@
 import os
-from dotenv import load_dotenv, find_dotenv
-from openai import AsyncOpenAI, OpenAI
+from dotenv import load_dotenv
+from openai import OpenAI, AsyncOpenAI
 
-load_dotenv(find_dotenv())
+# Load environment variables from .env
+load_dotenv()
 
-# Use the standard flash model name
-# CURRENT_MODEL = "gemini-2.0-flash" 
-CURRENT_MODEL = "gemini-2.5-flash"
+# ============================
+# Configuration for OpenRouter
+# ============================
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 
+# OpenRouter usually requires the provider prefix (e.g., openai/gpt-3.5-turbo)
+MODEL_NAME = "openai/gpt-3.5-turbo"
+# Headers required by OpenRouter for ranking and integration
+HEADERS = {
+    "HTTP-Referer": "http://localhost:8000", # Required for OpenRouter
+    "X-Title": "Cognitic Agentic AI",        # Optional but recommended
+}
 
+# ============================
+# Async client (streaming)
+# ============================
 def get_async_client():
+    """
+    Returns an AsyncOpenAI client configured for OpenRouter.
+    """
     return AsyncOpenAI(
-        api_key=os.getenv("GEMINI_API_KEY"),
-        base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+        api_key=OPENROUTER_API_KEY,
+        base_url=OPENROUTER_BASE_URL,
+        default_headers=HEADERS
     )
 
 async def run_agent_stream(prompt: str):
+    """
+    Streams chat responses from the OpenRouter API asynchronously.
+    """
     client = get_async_client()
     try:
         response = await client.chat.completions.create(
-            model=CURRENT_MODEL,
+            model=MODEL_NAME,
             messages=[
-                {"role": "system", "content": "You are a helpful assistant. Respond immediately and concisely. Do not use a thinking phase."},
+                {
+                    "role": "system",
+                    "content": "You are a helpful assistant. Respond immediately and concisely."
+                },
                 {"role": "user", "content": prompt}
             ],
             stream=True
-            # Removed reasoning_effort and extra_body to avoid 400 errors
         )
         async for chunk in response:
             if chunk.choices and chunk.choices[0].delta.content:
@@ -33,18 +55,22 @@ async def run_agent_stream(prompt: str):
     except Exception as e:
         yield f"\n❌ Connection Error: {str(e)}"
 
+# ============================
+# Sync client (normal chat)
+# ============================
 def run_agent(prompt: str) -> str:
-    sync_client = OpenAI(
-        api_key=os.getenv("GEMINI_API_KEY"),
-        base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+    client = OpenAI(
+        api_key=os.getenv("OPENROUTER_API_KEY"),
+        base_url="https://openrouter.ai/api/v1",
+        default_headers={
+            "HTTP-Referer": "http://localhost:8000", # Required
+            "X-Title": "Cognitic AI",                 # Recommended
+        }
     )
     try:
-        response = sync_client.chat.completions.create(
-            model=CURRENT_MODEL,
-            messages=[
-                {"role": "system", "content": "You are a helpful assistant. Respond immediately and concisely."},
-                {"role": "user", "content": prompt}
-            ]
+        response = client.chat.completions.create(
+            model="openai/gpt-3.5-turbo",
+            messages=[{"role": "user", "content": prompt}]
         )
         return response.choices[0].message.content
     except Exception as e:
