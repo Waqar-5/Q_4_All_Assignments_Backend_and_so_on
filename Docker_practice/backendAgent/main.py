@@ -1,17 +1,17 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
+from pydantic import BaseModel
 from agent_main import run_agent
-import uvicorn
 
 app = FastAPI(title="Cognitic Agentic AI API")
+
+class ChatRequest(BaseModel):
+    message: str
 
 @app.get("/")
 def home():
     return {"status": "Agent API is running 🚀"}
 
 @app.post("/chat")
-def chat(message: str): # Simplified for testing
-    reply = run_agent(message)
+def chat(req: ChatRequest):
+    reply = run_agent(req.message)
     return {"reply": reply}
-
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -4,8 +4,10 @@ from openai import AsyncOpenAI, OpenAI
 
 load_dotenv(find_dotenv())
 
-# Use 2.5-flash which is the fastest stable model right now
-CURRENT_MODEL = "gemini-2.5-flash" 
+# Use the standard flash model name
+# CURRENT_MODEL = "gemini-2.0-flash" 
+CURRENT_MODEL = "gemini-2.5-flash"
+
 
 def get_async_client():
     return AsyncOpenAI(
@@ -18,16 +20,18 @@ async def run_agent_stream(prompt: str):
     try:
         response = await client.chat.completions.create(
             model=CURRENT_MODEL,
-            messages=[{"role": "user", "content": prompt}],
-            stream=True,
-            # Use 'none' to disable the long thinking delay for 2.5 models
-            reasoning_effort="none" 
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant. Respond immediately and concisely. Do not use a thinking phase."},
+                {"role": "user", "content": prompt}
+            ],
+            stream=True
+            # Removed reasoning_effort and extra_body to avoid 400 errors
         )
         async for chunk in response:
-            if chunk.choices[0].delta.content:
+            if chunk.choices and chunk.choices[0].delta.content:
                 yield chunk.choices[0].delta.content
     except Exception as e:
-        yield f"\n❌ Error: {e}"
+        yield f"\n❌ Connection Error: {str(e)}"
 
 def run_agent(prompt: str) -> str:
     sync_client = OpenAI(
@@ -37,10 +41,11 @@ def run_agent(prompt: str) -> str:
     try:
         response = sync_client.chat.completions.create(
             model=CURRENT_MODEL,
-            messages=[{"role": "user", "content": prompt}],
-            # Use 'none' here too for instant responses
-            reasoning_effort="none"
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant. Respond immediately and concisely."},
+                {"role": "user", "content": prompt}
+            ]
         )
         return response.choices[0].message.content
     except Exception as e:
-        return f"❌ Error: {e}"
+        return f"❌ Error: {str(e)}"
